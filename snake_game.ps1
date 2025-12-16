@@ -27,6 +27,9 @@ $script:DOWN = @{X=0; Y=1}
 $script:LEFT = @{X=-1; Y=0}
 $script:RIGHT = @{X=1; Y=0}
 
+# Initialisiere Richtungen-Array für zufällige Auswahl
+$script:directions = @($UP, $DOWN, $LEFT, $RIGHT)
+
 # Spielvariablen
 $script:snakePositions = @()
 $script:snakeLength = 3
@@ -37,9 +40,6 @@ $script:gameTimer = $null
 
 # Random-Generator
 $script:random = New-Object System.Random
-
-# Initialisiere Richtungen-Array für zufällige Auswahl
-$script:directions = @($UP, $DOWN, $LEFT, $RIGHT)
 
 # Snake initialisieren
 function Initialize-Snake {
@@ -87,7 +87,7 @@ function Update-Snake {
     $newY = ($head.Y + $script:snakeDirection.Y + $GRID_HEIGHT) % $GRID_HEIGHT
     $newHead = @{X=$newX; Y=$newY}
     
-    # Prüfe Selbstkollision (ignoriere ersten beiden Segmente)
+    # Prüfe Selbstkollision (ignoriere Kopf und erstes Körpersegment)
     for ($i = 2; $i -lt $script:snakePositions.Count; $i++) {
         if (Compare-Position $newHead $script:snakePositions[$i]) {
             Initialize-Snake
@@ -184,8 +184,13 @@ function Start-SnakeGame {
     $pictureBox.BackColor = $BLACK
     $form.Controls.Add($pictureBox)
     
-    # Doppel-Buffering für flüssige Darstellung
-    $pictureBox.GetType().GetProperty("DoubleBuffered", [System.Reflection.BindingFlags]::Instance -bor [System.Reflection.BindingFlags]::NonPublic).SetValue($pictureBox, $true, $null)
+    # Doppel-Buffering für flüssige Darstellung (mit Fehlerbehandlung)
+    try {
+        $pictureBox.GetType().GetProperty("DoubleBuffered", [System.Reflection.BindingFlags]::Instance -bor [System.Reflection.BindingFlags]::NonPublic).SetValue($pictureBox, $true, $null)
+    } catch {
+        # Wenn DoubleBuffering nicht gesetzt werden kann, trotzdem fortfahren
+        # Das Spiel funktioniert auch ohne, nur eventuell mit leichtem Flackern
+    }
     
     # Paint Event
     $pictureBox.Add_Paint({ Draw-Game $_ })
