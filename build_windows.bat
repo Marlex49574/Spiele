@@ -61,6 +61,6 @@ echo Die ausführbare Datei befindet sich in:
 echo   dist\SnakeGame\SnakeGame.exe
 echo.
 echo Du kannst den gesamten 'dist\SnakeGame\' Ordner
-echo an einen anderen Ort kopieren und dort ausfuehren.
+echo an einen anderen Ort kopieren und dort ausführen.
 echo.
 pause

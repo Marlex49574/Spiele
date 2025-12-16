@@ -48,7 +48,7 @@ def build_exe():
         print("Die ausführbare Datei befindet sich in:")
         print(f"  {os.path.abspath('dist/SnakeGame/SnakeGame.exe')}")
         print()
-        print("Du kannst die gesamte 'dist/SnakeGame/' Ordner")
+        print("Du kannst den gesamten 'dist/SnakeGame/' Ordner")
         print("an einen anderen Ort kopieren und dort ausführen.")
         print()
         
