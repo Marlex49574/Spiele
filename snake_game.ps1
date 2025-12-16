@@ -12,6 +12,7 @@ $WINDOW_HEIGHT = 600
 $GRID_SIZE = 20
 $GRID_WIDTH = [int]($WINDOW_WIDTH / $GRID_SIZE)
 $GRID_HEIGHT = [int]($WINDOW_HEIGHT / $GRID_SIZE)
+$GAME_SPEED = 100  # Millisekunden zwischen Updates (niedriger = schneller)
 
 # Farben
 $BLACK = [System.Drawing.Color]::Black
@@ -87,7 +88,7 @@ function Update-Snake {
     $newY = ($head.Y + $script:snakeDirection.Y + $GRID_HEIGHT) % $GRID_HEIGHT
     $newHead = @{X=$newX; Y=$newY}
     
-    # Prüfe Selbstkollision (ignoriere Kopf und erstes Körpersegment)
+    # Prüfe Selbstkollision (ignoriere die ersten zwei Segmente: Kopf und Nacken)
     for ($i = 2; $i -lt $script:snakePositions.Count; $i++) {
         if (Compare-Position $newHead $script:snakePositions[$i]) {
             Initialize-Snake
@@ -232,7 +233,7 @@ function Start-SnakeGame {
     
     # Timer für Spiel-Loop
     $script:gameTimer = New-Object System.Windows.Forms.Timer
-    $script:gameTimer.Interval = 100  # 100ms = 10 FPS
+    $script:gameTimer.Interval = $GAME_SPEED
     $script:gameTimer.Add_Tick({
         Update-Snake
         $pictureBox.Invalidate()
