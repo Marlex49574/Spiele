@@ -12,6 +12,7 @@ Steuere die grüne Schlange und sammle die roten Punkte ein. Mit jedem Punkt wir
 - **Pfeiltaste Unten**: Nach unten bewegen
 - **Pfeiltaste Links**: Nach links bewegen
 - **Pfeiltaste Rechts**: Nach rechts bewegen
+- **P**: Spiel pausieren/fortsetzen
 - **ESC**: Spiel beenden
 
 ### Spielregeln
