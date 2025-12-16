@@ -1,6 +1,7 @@
 """
 Snake Game - Ein einfaches Snake-Spiel für Windows
 Steuerung: Pfeiltasten
+Pause: P-Taste
 Ziel: Sammle die roten Punkte und werde länger!
 """
 
@@ -75,23 +76,29 @@ class Snake:
             pygame.draw.rect(surface, color, rect)
             pygame.draw.rect(surface, BLACK, rect, 1)
 
-    def handle_keys(self):
+    def handle_keys(self, paused):
+        pause_toggled = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP and self.direction != DOWN:
-                    self.direction = UP
-                elif event.key == pygame.K_DOWN and self.direction != UP:
-                    self.direction = DOWN
-                elif event.key == pygame.K_LEFT and self.direction != RIGHT:
-                    self.direction = LEFT
-                elif event.key == pygame.K_RIGHT and self.direction != LEFT:
-                    self.direction = RIGHT
+                if event.key == pygame.K_p:
+                    pause_toggled = True
                 elif event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+                # Nur Richtungsänderungen erlauben wenn nicht pausiert
+                elif not paused:
+                    if event.key == pygame.K_UP and self.direction != DOWN:
+                        self.direction = UP
+                    elif event.key == pygame.K_DOWN and self.direction != UP:
+                        self.direction = DOWN
+                    elif event.key == pygame.K_LEFT and self.direction != RIGHT:
+                        self.direction = LEFT
+                    elif event.key == pygame.K_RIGHT and self.direction != LEFT:
+                        self.direction = RIGHT
+        return pause_toggled
 
 class Food:
     def __init__(self):
@@ -129,23 +136,30 @@ def main():
     
     # Font für Score
     font = pygame.font.Font(None, 36)
+    pause_font = pygame.font.Font(None, 72)
+    
+    # Pause-Status
+    paused = False
     
     # Spielschleife
     while True:
         # Events behandeln
-        snake.handle_keys()
+        pause_toggled = snake.handle_keys(paused)
+        if pause_toggled:
+            paused = not paused
         
-        # Update
-        snake.update()
-        
-        # Prüfen ob Schlange Essen erreicht hat
-        if snake.get_head_position() == food.position:
-            snake.length += 1
-            snake.score += 10
-            food.randomize_position()
-            # Stelle sicher, dass Essen nicht auf Schlange erscheint
-            while food.position in snake.positions:
+        # Update nur wenn nicht pausiert
+        if not paused:
+            snake.update()
+            
+            # Prüfen ob Schlange Essen erreicht hat
+            if snake.get_head_position() == food.position:
+                snake.length += 1
+                snake.score += 10
                 food.randomize_position()
+                # Stelle sicher, dass Essen nicht auf Schlange erscheint
+                while food.position in snake.positions:
+                    food.randomize_position()
         
         # Zeichnen
         screen.fill(BLACK)
@@ -156,6 +170,16 @@ def main():
         # Score anzeigen
         score_text = font.render(f'Punkte: {snake.score}', True, WHITE)
         screen.blit(score_text, (10, 10))
+        
+        # Pause-Text anzeigen wenn pausiert
+        if paused:
+            pause_text = pause_font.render('PAUSIERT', True, WHITE)
+            pause_rect = pause_text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
+            screen.blit(pause_text, pause_rect)
+            
+            instruction_text = font.render('Drücke P zum Fortsetzen', True, WHITE)
+            instruction_rect = instruction_text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 50))
+            screen.blit(instruction_text, instruction_rect)
         
         pygame.display.update()
         clock.tick(10)  # 10 FPS für angenehme Geschwindigkeit
