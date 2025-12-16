@@ -85,17 +85,19 @@ class Snake:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
                     pause_toggled = True
-                elif event.key == pygame.K_UP and self.direction != DOWN:
-                    self.direction = UP
-                elif event.key == pygame.K_DOWN and self.direction != UP:
-                    self.direction = DOWN
-                elif event.key == pygame.K_LEFT and self.direction != RIGHT:
-                    self.direction = LEFT
-                elif event.key == pygame.K_RIGHT and self.direction != LEFT:
-                    self.direction = RIGHT
                 elif event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+                # Nur Richtungsänderungen erlauben wenn nicht pausiert
+                elif not paused:
+                    if event.key == pygame.K_UP and self.direction != DOWN:
+                        self.direction = UP
+                    elif event.key == pygame.K_DOWN and self.direction != UP:
+                        self.direction = DOWN
+                    elif event.key == pygame.K_LEFT and self.direction != RIGHT:
+                        self.direction = LEFT
+                    elif event.key == pygame.K_RIGHT and self.direction != LEFT:
+                        self.direction = RIGHT
         return pause_toggled
 
 class Food:
