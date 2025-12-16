@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiele - Testumgebung</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Spiele Testumgebung</h1>
+        <div class="game-info">
+            <p>Punkte: <span id="score">0</span></p>
+            <p>Highscore: <span id="highscore">0</span></p>
+        </div>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <div class="controls">
+            <p>Steuerung: Pfeiltasten oder WASD</p>
+            <button id="startBtn">Start</button>
+            <button id="pauseBtn">Pause</button>
+            <button id="resetBtn">Reset</button>
+        </div>
+        <div class="instructions">
+            <h2>Anleitung</h2>
+            <p>Verwenden Sie die Pfeiltasten oder WASD, um die Schlange zu steuern.</p>
+            <p>Sammeln Sie das rote Futter, um zu wachsen und Punkte zu sammeln.</p>
+            <p>Vermeiden Sie die Wände und Ihren eigenen Körper!</p>
+        </div>
+    </div>
+    <script src="snake.js"></script>
+</body>
+</html>
