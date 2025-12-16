@@ -22,7 +22,18 @@ Steuere die grüne Schlange und sammle die roten Punkte ein. Mit jedem Punkt wir
 
 ## Installation und Ausführung
 
-### Option 1: Python-Version ausführen (benötigt Python)
+### Option 1: PowerShell-Version ausführen (KEINE Installation erforderlich!) ⭐ EMPFOHLEN
+1. Starte das Spiel mit einem Doppelklick auf `start_game_powershell.bat`
+   - ODER: Führe in PowerShell aus: `.\snake_game.ps1`
+   - ODER: Rechtsklick auf `snake_game.ps1` → "Mit PowerShell ausführen"
+
+**Vorteile:**
+- ✅ Keine Installation von Python oder anderen Abhängigkeiten erforderlich
+- ✅ Funktioniert auf jedem modernen Windows (7/8/10/11)
+- ✅ PowerShell ist bereits in Windows enthalten
+- ✅ Sofort spielbereit!
+
+### Option 2: Python-Version ausführen (benötigt Python)
 1. Installiere Python 3.x von python.org
 2. Installiere die Abhängigkeiten:
    ```
@@ -33,7 +44,7 @@ Steuere die grüne Schlange und sammle die roten Punkte ein. Mit jedem Punkt wir
    python snake_game.py
    ```
 
-### Option 2: Windows EXE erstellen
+### Option 3: Windows EXE erstellen
 1. Installiere PyInstaller:
    ```
    pip install pyinstaller
@@ -48,13 +59,27 @@ Steuere die grüne Schlange und sammle die roten Punkte ein. Mit jedem Punkt wir
 ## Systemanforderungen
 - Windows 7 oder höher
 - Mindestens 50 MB freier Speicherplatz
+- **PowerShell-Version**: Keine zusätzlichen Installationen nötig! ✅
+- Python-Version: Python 3.7+ und pygame benötigt
 
 ## Features
-- Grüne Schlange (heller Kopf, dunklerer Körper)
-- Rote Punkte zum Einsammeln
-- Punktezähler
-- Gitter zur besseren Orientierung
-- Automatischer Neustart bei Kollision mit sich selbst
-- Wrap-around durch Wände
+- 🎮 **Zwei Versionen verfügbar**:
+  - **PowerShell-Version**: Sofort spielbereit, keine Abhängigkeiten!
+  - **Python-Version**: Original-Implementierung mit pygame
+- 🐍 Grüne Schlange (heller Kopf, dunklerer Körper)
+- 🔴 Rote Punkte zum Einsammeln
+- 📊 Punktezähler
+- 📏 Gitter zur besseren Orientierung
+- 🔄 Automatischer Neustart bei Kollision mit sich selbst
+- 🌍 Wrap-around durch Wände
+
+## Dateien
+
+- `snake_game.ps1` - PowerShell-Version des Spiels (empfohlen!)
+- `start_game_powershell.bat` - Starter für PowerShell-Version
+- `snake_game.py` - Python-Version des Spiels
+- `start_game.bat` - Starter für Python-Version
+- `README.md` - Diese Anleitung
+- `ANLEITUNG.md` - Detaillierte deutsche Anleitung
 
 Viel Spaß beim Spielen!
